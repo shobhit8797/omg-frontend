@@ -7,9 +7,8 @@ import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Socket, io } from "socket.io-client";
 import { VideoCard } from "../VideoCard";
-import { log } from "console";
+import { BASE_URL } from "@/config";
 
-const URL = "http://localhost:8000";
 
 export const Room = ({
     name,
@@ -36,7 +35,7 @@ export const Room = ({
     const localVideoRef = useRef<HTMLVideoElement>();
 
     useEffect(() => {
-        const socket = io(URL);
+        const socket = io(BASE_URL);
 
         socket.on("send-offer", async ({ roomId }) => {
             console.log("recieved send-offer recieved for", socket.id);

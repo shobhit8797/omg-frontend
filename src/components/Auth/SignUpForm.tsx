@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "@/config";
 
 export const SignUpForm = () => {
     const [firstName, setFirstName] = useState("");
@@ -33,7 +34,7 @@ export const SignUpForm = () => {
         try {
             console.log(userData);
             const response = await axios.post(
-                "http://localhost:8000/signup",
+                `${BASE_URL}/signup`,
                 userData,
                 {
                     headers: {

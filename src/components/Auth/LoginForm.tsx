@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "@/config";
 
 export const SignInForm = () => {
     const [email, setEmail] = useState("");
@@ -26,8 +27,9 @@ export const SignInForm = () => {
         setSuccess(null);
 
         try {
+            console.log("BASE_URL", BASE_URL);
             const response = await axios.post(
-                "http://localhost:8000/login",
+                `${BASE_URL}/login`,
                 { email, password },
                 {
                     headers: {
