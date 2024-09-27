@@ -33,15 +33,11 @@ export const SignUpForm = () => {
 
         try {
             console.log(userData);
-            const response = await axios.post(
-                `${BASE_URL}/signup`,
-                userData,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await axios.post(`${BASE_URL}/signup`, userData, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
 
             setFirstName("");
             setLastName("");
@@ -65,9 +61,7 @@ export const SignUpForm = () => {
         <Card className="mx-auto max-w-sm">
             <CardHeader>
                 <CardTitle className="text-xl">Sign Up</CardTitle>
-                <CardDescription>
-                    Your data is safe with us.
-                </CardDescription>
+                <CardDescription>Your data is safe with us.</CardDescription>
             </CardHeader>
             <CardContent>
                 <form onSubmit={handleSubmit}>
