@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,19 +13,28 @@ import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import { BASE_URL } from "@/config";
 
-export const SignUpForm = () => {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
+// Define types for the state variables
+type UserType = {
+    username: string;
+    email: string;
+    password: string;
+};
 
-    const handleSubmit = async (e) => {
+export const SignUpForm = () => {
+    // Use more specific types for each state variable
+    const [firstName, setFirstName] = useState<string>("");
+    const [lastName, setLastName] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
+
+    // Type the handleSubmit function
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
 
-        // Construct the request body
-        const userData = {
+        // Construct the request body with UserType
+        const userData: UserType = {
             username: `${firstName}_${lastName}`, // Combine first and last name
             email,
             password,
@@ -39,18 +48,20 @@ export const SignUpForm = () => {
                 },
             });
 
+            // Reset state values after successful signup
             setFirstName("");
             setLastName("");
             setEmail("");
             setPassword("");
             window.location.href = "/signin";
-        } catch (err) {
+        } catch (err: any) {
+            // Add a more specific type for error handling
             if (err.response && err.response.data && err.response.data.error) {
                 console.log(err.response.data.error);
-                // setError(err.response.data.error);
+                // setError(err.response.data.error); // Uncomment if you have error handling state
             } else {
                 console.log("Failed to sign up. Please try again.");
-                // setError("Failed to sign up. Please try again.");
+                // setError("Failed to sign up. Please try again."); // Uncomment if you have error handling state
             }
         } finally {
             setLoading(false);

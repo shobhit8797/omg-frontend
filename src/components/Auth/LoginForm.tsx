@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,14 +13,19 @@ import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import { BASE_URL } from "@/config";
 
-export const SignInForm = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(null);
+// Define types for the state variables
+type ErrorType = string | null;
+type SuccessType = string | null;
 
-    const handleSubmit = async (e) => {
+export const SignInForm = () => {
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<ErrorType>(null);
+    const [success, setSuccess] = useState<SuccessType>(null);
+
+    // Type the handleSubmit function
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
         setError(null);
@@ -45,7 +50,8 @@ export const SignInForm = () => {
                 localStorage.setItem("token", response.data.token);
                 window.location.href = "/";
             }
-        } catch (err) {
+        } catch (err: any) {
+            // Add a more specific type for error handling
             if (err.response && err.response.data && err.response.data.error) {
                 setError(err.response.data.error);
             } else {
