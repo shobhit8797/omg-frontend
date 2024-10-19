@@ -22,11 +22,11 @@ const App: React.FC = () => {
                             <Route
                                 path="/"
                                 element={
-                                    isAuthenticated ? (
+                                    // isAuthenticated ? (
                                         <Main />
-                                    ) : (
-                                        <Navigate to="/signup" replace />
-                                    )
+                                    // ) : (
+                                    //     <Navigate to="/signup" replace />
+                                    // )
                                 }
                             />
                             <Route
